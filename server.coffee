@@ -27,7 +27,7 @@ renderBootstrap = (props) ->
 
 # Render a component to HTML
 renderComponent = (component, props) ->
-    delete require.cache[require.resolve './static/components/test']
+    delete require.cache[require.resolve './static/components/' + component]
     _Component = require './static/components/' + component
     React.renderToString React.createFactory(_Component)(props)
 
