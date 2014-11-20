@@ -16,12 +16,11 @@ Test = React.createClass
         </div>
 
 TestInner = React.createClass
-    newWord: ->
-        word = randomString(Math.round(Math.random() * 5 + 5))
-        app_router.navigate '/definitions/' + word, trigger: true
 
     render: ->
-        <button onClick={@newWord}>Ok</button>
+        next_word = randomString(Math.round(Math.random() * 5 + 5))
+        next_word_url = '/definitions/' + next_word
+        <a href={next_word_url}>Ok</a>
 
 module.exports = Test
 

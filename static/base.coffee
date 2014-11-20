@@ -15,6 +15,12 @@ getDefinition = (word, cb) ->
         $.get "/definitions/#{ word }.json", (response) ->
             cb null, response.definition
 
+# Make href clicks trigger the router
+$(document).on 'click', "a[href^='/']", (e) ->
+    return if e.ctrlKey
+    e.preventDefault()
+    app_router.navigate $(e.currentTarget).attr('href'), trigger: true
+
 AppRouter = Backbone.Router.extend
     routes:
         "definitions/:word": "showDefinition"
@@ -23,7 +29,8 @@ AppRouter = Backbone.Router.extend
         getDefinition word, (err, definition) ->
             React.render React.createFactory(Test)({word, definition}), $('#main')[0]
 
+app_router = new AppRouter()
+
 $ ->
-    window.app_router = new AppRouter()
     Backbone.history.start(pushState: true)
 
